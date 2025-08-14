@@ -1,0 +1,63 @@
+<div class="header-layout">
+    <nav class="sidebar" [class.open]="isSidebarOpen">
+        <div class="sidebar-header d-flex justify-content-between align-items-center">
+            <div class="logo">
+                <img src="/logo.png" alt="Logo" />
+            </div>
+            <i class="bi bi-x-lg close-btn d-md-none" (click)="toggleSidebar()"></i>
+        </div>
+
+        <ul class="menu">
+            <li routerLink="/dashboard" routerLinkActive="active" (click)="closeSidebar()">
+                <i class="bi bi-kanban"></i> Dashboard
+            </li>
+            <li routerLink="/products" routerLinkActive="active" (click)="closeSidebar()">
+                <i class="bi bi-box-seam"></i> All Products
+            </li>
+            <li routerLink="/orders" routerLinkActive="active" (click)="closeSidebar()">
+                <i class="bi bi-list-ul"></i> Order List
+            </li>
+            <li routerLink="/coupons" routerLinkActive="active" (click)="closeSidebar()">
+                <i class="bi bi-distribute-vertical"></i> Coupon
+            </li>
+            <li routerLink="/notifications" routerLinkActive="active" (click)="closeSidebar()">
+                <i class="bi bi-bell"></i> Notification
+            </li>
+            <li routerLink="/revenue" routerLinkActive="active" (click)="closeSidebar()">
+                <i class="bi bi-cash-coin"></i> Revenue
+            </li>
+        </ul>
+    </nav>
+
+    <div class="main">
+        <header class="topbar">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-list toggle-btn d-md-none" (click)="toggleSidebar()"></i>
+                <div class="page-title">{{ pageTitle }}</div>
+            </div>
+
+            <div class="profile-container" (click)="toggleProfileMenu()" tabindex="0" (blur)="closeProfileMenu()">
+                <i class="bi bi-person-circle"></i>
+
+                <ul class="profile-menu" *ngIf="isProfileMenuOpen">
+                    <li (click)="goToProfile()">Profile</li>
+                    <li (click)="logout()">Logout</li>
+                </ul>
+            </div>
+        </header>
+        <div class="breadcrumb-wrapper px-3 py-2">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item" *ngFor="let bc of breadcrumbs; let last = last" [class.active]="last"
+                        [attr.aria-current]="last ? 'page' : null">
+                        <a *ngIf="!last" [routerLink]="bc.url">{{ bc.label }}</a>
+                        <span *ngIf="last">{{ bc.label }}</span>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <main class="router-container">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>
