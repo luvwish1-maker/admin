@@ -16,30 +16,54 @@ import { ProductsEditComponent } from './components/products-edit/products-edit.
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
+
     {
         path: '',
         component: LayoutComponent,
         children: [
             { path: 'dashboard', component: DashboardComponent, data: { breadcrumb: 'Dashboard' } },
 
-            { path: 'products', component: ProductsComponent, data: { breadcrumb: 'All Products' } },
-            { path: 'product/create', component: ProductsEditComponent, data: { breadcrumb: 'New' } },
-            { path: 'product/:id', component: ProductDetailComponent, data: { breadcrumb: 'Details' } },
-            { path: 'product/edit/:id', component: ProductsEditComponent, data: { breadcrumb: 'Edit' } },
+            {
+                path: 'products',
+                data: { breadcrumb: 'All Products' },
+                children: [
+                    { path: '', component: ProductsComponent },
+                    { path: 'create', component: ProductsEditComponent, data: { breadcrumb: 'New' } },
+                    { path: ':id', component: ProductDetailComponent, data: { breadcrumb: 'Details' } },
+                    { path: 'edit/:id', component: ProductsEditComponent, data: { breadcrumb: 'Edit' } }
+                ]
+            },
 
-            { path: 'orders', component: OrdersComponent, data: { breadcrumb: 'Order List' } },
-            { path: 'order/:id', component: OrderDetailComponent, data: { breadcrumb: 'Details' } },
+            {
+                path: 'orders',
+                data: { breadcrumb: 'Order List' },
+                children: [
+                    { path: '', component: OrdersComponent },
+                    { path: ':id', component: OrderDetailComponent, data: { breadcrumb: 'Details' } }
+                ]
+            },
 
             { path: 'revenue', component: PaymentsComponent, data: { breadcrumb: 'Revenue' } },
 
-            { path: 'notifications', component: NotificationsComponent, data: { breadcrumb: 'Notifications' } },
-            { path: 'notification/create', component: NotificationEditComponent, data: { breadcrumb: 'Create' } },
-            { path: 'notification/edit/:id', component: NotificationEditComponent, data: { breadcrumb: 'Edit' } },
+            {
+                path: 'notifications',
+                data: { breadcrumb: 'Notifications' },
+                children: [
+                    { path: '', component: NotificationsComponent },
+                    { path: 'create', component: NotificationEditComponent, data: { breadcrumb: 'Create' } },
+                    { path: 'edit/:id', component: NotificationEditComponent, data: { breadcrumb: 'Edit' } }
+                ]
+            },
 
-            { path: 'coupons', component: CouponsComponent, data: { breadcrumb: 'Coupons' } },
-            { path: 'coupons/create', component: CouponEditComponent, data: { breadcrumb: 'Create' } },
-            { path: 'coupons/edit/:id', component: CouponEditComponent, data: { breadcrumb: 'Edit' } },
-
+            {
+                path: 'coupons',
+                data: { breadcrumb: 'Coupons' },
+                children: [
+                    { path: '', component: CouponsComponent },
+                    { path: 'create', component: CouponEditComponent, data: { breadcrumb: 'Create' } },
+                    { path: 'edit/:id', component: CouponEditComponent, data: { breadcrumb: 'Edit' } }
+                ]
+            }
         ]
     }
 ];

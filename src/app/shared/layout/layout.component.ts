@@ -49,13 +49,16 @@ export class LayoutComponent implements OnInit {
 
     for (const child of children) {
       const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
-      if (routeURL !== '') {
+      if (routeURL) {
         url += `/${routeURL}`;
       }
 
-      const label = child.snapshot.data['breadcrumb'] || routeURL;
+      const label = child.snapshot.data['breadcrumb'];
+
       if (label) {
-        breadcrumbs.push({ label, url });
+        if (!breadcrumbs.some(bc => bc.url === url)) {
+          breadcrumbs.push({ label, url });
+        }
       }
 
       return this.buildBreadcrumb(child, url, breadcrumbs);
