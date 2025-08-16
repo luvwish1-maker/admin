@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="headings d-flex justify-content-between align-items-center mb-4 flex-wrap">
         <h4 class="m-0">All Products</h4>
-        <button class="btn add-btn mt-2 mt-md-0">
+        <button class="btn add-btn mt-2 mt-md-0" [routerLink]="['/product/create']">
             <i class="bi bi-plus-lg me-2"></i> Add New Product
         </button>
     </div>
@@ -16,14 +16,13 @@
                         <h5 class="text-dark fw-bold">${{ product.price }}</h5>
                     </div>
 
-                    <!-- Dropdown Menu -->
                     <div class="dropdown ms-auto">
                         <button class="btn btn-light p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-three-dots"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Edit</a></li>
-                            <li><a class="dropdown-item" href="#">Details</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/product/edit', product.id]">Edit</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['/product', product.id]">Details</a></li>
                             <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
                         </ul>
                     </div>
