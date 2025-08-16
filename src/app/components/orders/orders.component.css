@@ -1,0 +1,19 @@
+.container-fluid {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    width: 100%;
+}
+
+.headings h4 {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.card {
+    background: #fff;
+    border-radius: 1rem;
+}
+
+.badge {
+    font-size: 0.8rem;
+}
