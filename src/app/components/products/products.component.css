@@ -1,0 +1,58 @@
+.container-fluid {
+    padding: 1rem;
+    background-color: rgba(245, 222, 179, 0.185);
+}
+
+.headings h4 {
+    font-weight: 600;
+}
+
+.add-btn {
+    background-color: #EB147D;
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.add-btn:hover {
+    background-color: #c01068;
+    color: #fff;
+}
+
+.product-card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.product-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.stats {
+    background: #f8f9fa;
+    font-size: 14px;
+    border: 1px solid #dee2e6;
+}
+
+.stats hr {
+    border-top: 2px solid #131313;
+}
+
+@media (max-width: 576px) {
+    .product-img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .headings {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .headings button {
+        width: 100%;
+    }
+}

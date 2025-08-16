@@ -1,1 +1,52 @@
-<p>products works!</p>
+<div class="container-fluid">
+    <div class="headings d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <h4 class="m-0">All Products</h4>
+        <button class="btn add-btn mt-2 mt-md-0">
+            <i class="bi bi-plus-lg me-2"></i> Add New Product
+        </button>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-12 col-sm-6 col-lg-4" *ngFor="let product of products">
+            <div class="card product-card h-100 shadow-sm border-0">
+                <div class="d-flex align-items-center p-3">
+                    <img [src]="product.image" [alt]="product.name" class="product-img me-3" />
+                    <div class="flex-grow-1">
+                        <h6 class="mb-1 text-truncate">{{ product.name }}</h6>
+                        <h5 class="text-dark fw-bold">${{ product.price }}</h5>
+                    </div>
+
+                    <!-- Dropdown Menu -->
+                    <div class="dropdown ms-auto">
+                        <button class="btn btn-light p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="#">Details</a></li>
+                            <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card-body pt-0">
+                    <p class="text-muted small">{{ product.summary }}</p>
+
+                    <div class="stats p-3 rounded">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Sales</span>
+                            <span>
+                                <i class="bi bi-arrow-up text-warning me-1"></i>{{ product.sales }}
+                            </span>
+                        </div>
+                        <hr class="my-2" />
+                        <div class="d-flex justify-content-between">
+                            <span>Remaining Products</span>
+                            <span>{{ product.remaining }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
