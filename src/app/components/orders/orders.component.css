@@ -17,3 +17,7 @@
 .badge {
     font-size: 0.8rem;
 }
+
+table td{ 
+    cursor: pointer;
+}

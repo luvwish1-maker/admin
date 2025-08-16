@@ -29,15 +29,16 @@
                         <td>
                             <input type="checkbox" class="form-check-input" />
                         </td>
-                        <td>{{ order.orderID }}</td>
-                        <td class="text-truncate" style="max-width: 200px;">{{ order.product }}</td>
-                        <td>{{ order.customerName }}</td>
-                        <td>{{ order.date }}</td>
-                        <td>{{ order.location }}</td>
-                        <td>
+                        <td (click)="goTo('orders',order.id)">{{ order.orderID }}</td>
+                        <td (click)="goTo('orders',order.id)" class="text-truncate" style="max-width: 200px;">{{
+                            order.product }}</td>
+                        <td (click)="goTo('orders',order.id)">{{ order.customerName }}</td>
+                        <td (click)="goTo('orders',order.id)">{{ order.date }}</td>
+                        <td (click)="goTo('orders',order.id)">{{ order.location }}</td>
+                        <td (click)="goTo('orders',order.id)">
                             <span class="badge bg-success rounded-pill px-3 py-2">{{ order.status }}</span>
                         </td>
-                        <td class="text-end fw-semibold">₹{{ order.amount }}</td>
+                        <td (click)="goTo('orders',order.id)" class="text-end fw-semibold">₹{{ order.amount }}</td>
                     </tr>
                 </tbody>
             </table>

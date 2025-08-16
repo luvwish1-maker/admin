@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -90,4 +91,12 @@ export class OrdersComponent {
       amount: '500'
     },
   ]
+
+  constructor(
+    private router: Router
+  ) { }
+
+  goTo(link: String, id: any) {
+    this.router.navigate([`${link}/${id}`])
+  }
 }
