@@ -1,1 +1,39 @@
-<p>coupons works!</p>
+<div class="container-fluid">
+    <div class="headings d-flex justify-content-between align-items-center mb-3">
+        <h4 class="m-0">All Coupons</h4>
+        <button class="btn add-btn mt-2 mt-md-0" [routerLink]="['create']">
+            <i class="bi bi-plus-lg me-2"></i> Add New Coupon
+        </button>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="table-responsive">
+            <table class="table align-middle table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">Min Spend</th>
+                        <th scope="col">StartDate</th>
+                        <th scope="col">EndDate</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let not of coupons">
+                        <td>{{ not.code }}</td>
+                        <td>{{ not.type }}</td>
+                        <td>{{ not.value }}</td>
+                        <td>{{ not.minSpend }}</td>
+                        <td>{{ not.startDate }}</td>
+                        <td>{{ not.endDate }}</td>
+                        <td>
+                            <span class="badge bg-success rounded-pill px-3 py-2">{{ not.status }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

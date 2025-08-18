@@ -1,11 +1,94 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-coupons',
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './coupons.component.html',
   styleUrl: './coupons.component.css'
 })
 export class CouponsComponent {
-
+  coupons = [
+    {
+      id: 1,
+      code: 'Welcome50',
+      type: 'Percentage',
+      value: '50%',
+      minSpend: '400',
+      startDate: '01/02/2025',
+      endDate: '01/02/2025',
+      status: 'Active',
+    },
+    {
+      id: 2,
+      code: 'Welcome50',
+      type: 'Percentage',
+      value: '50%',
+      minSpend: '400',
+      startDate: '01/02/2025',
+      endDate: '01/02/2025',
+      status: 'Active',
+    },
+    {
+      id: 3,
+      code: 'Welcome50',
+      type: 'Percentage',
+      value: '50%',
+      minSpend: '400',
+      startDate: '01/02/2025',
+      endDate: '01/02/2025',
+      status: 'Active',
+    },
+    {
+      id: 4,
+      code: 'Welcome50',
+      type: 'Percentage',
+      value: '50%',
+      minSpend: '400',
+      startDate: '01/02/2025',
+      endDate: '01/02/2025',
+      status: 'Active',
+    },
+    {
+      id: 5,
+      code: 'Welcome50',
+      type: 'Percentage',
+      value: '50%',
+      minSpend: '400',
+      startDate: '01/02/2025',
+      endDate: '01/02/2025',
+      status: 'Active',
+    },
+    {
+      id: 6,
+      code: 'Welcome50',
+      type: 'Percentage',
+      value: '50%',
+      minSpend: '400',
+      startDate: '01/02/2025',
+      endDate: '01/02/2025',
+      status: 'Active',
+    },
+    {
+      id: 7,
+      code: 'Welcome50',
+      type: 'Percentage',
+      value: '50%',
+      minSpend: '400',
+      startDate: '01/02/2025',
+      endDate: '01/02/2025',
+      status: 'Active',
+    },
+    {
+      id: 8,
+      code: 'Welcome50',
+      type: 'Percentage',
+      value: '50%',
+      minSpend: '400',
+      startDate: '01/02/2025',
+      endDate: '01/02/2025',
+      status: 'Active',
+    },
+  ]
 }

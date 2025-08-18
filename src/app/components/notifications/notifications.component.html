@@ -1,1 +1,41 @@
-<p>notifications works!</p>
+<div class="container-fluid">
+    <div class="headings d-flex justify-content-between align-items-center mb-3">
+        <h4 class="m-0">All Notification</h4>
+        <button class="btn add-btn mt-2 mt-md-0" [routerLink]="['create']">
+            <i class="bi bi-plus-lg me-2"></i> Add New Notification
+        </button>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="table-responsive">
+            <table class="table align-middle table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let not of notifications">
+                        <td>{{ not.id }}</td>
+                        <td class="text-truncate" style="max-width: 200px;">{{ not.type }}</td>
+                        <td>{{ not.method }}</td>
+                        <td>{{ not.schedule }}</td>
+                        <td>{{ not.target }}</td>
+                        <td>
+                            <span class="badge bg-success rounded-pill px-3 py-2">{{ not.status }}</span>
+                        </td>
+                        <td class="fw-semibold">
+                            <span><i class="bi bi-pencil-square"></i></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
