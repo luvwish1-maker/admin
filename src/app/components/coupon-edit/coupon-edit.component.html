@@ -1,1 +1,97 @@
-<p>coupon-edit works!</p>
+<div class="container-fluid py-4">
+    <form [formGroup]="couponForm" (ngSubmit)="onSave()">
+        <div class="row g-4">
+            <!-- Left side -->
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 p-4">
+                    <!-- Coupon Code -->
+                    <div class="mb-3">
+                        <label class="form-label">Coupon Code</label>
+                        <input type="text" class="form-control" formControlName="code"
+                            placeholder="Enter coupon code" />
+                        <div *ngIf="isInvalid('code')" class="invalid-feedback d-block">
+                            Coupon code is required.
+                        </div>
+                    </div>
+
+                    <!-- Value Type -->
+                    <div class="mb-3">
+                        <label class="form-label">Value Type</label>
+                        <select class="form-select" formControlName="valueType">
+                            <option value="">Select type</option>
+                            <option value="percentage">Percentage</option>
+                            <option value="fixed">Fixed Amount</option>
+                        </select>
+                        <div *ngIf="isInvalid('valueType')" class="invalid-feedback d-block">
+                            Please select a value type.
+                        </div>
+                    </div>
+
+                    <!-- Value -->
+                    <div class="mb-3">
+                        <label class="form-label">Value</label>
+                        <input type="number" class="form-control" formControlName="value" placeholder="Enter value" />
+                        <div *ngIf="isInvalid('value')" class="invalid-feedback d-block">
+                            Value is required.
+                        </div>
+                    </div>
+
+                    <!-- Minimum Spend -->
+                    <div class="mb-3">
+                        <label class="form-label">Minimum Spend</label>
+                        <input type="number" class="form-control" formControlName="minSpend"
+                            placeholder="Enter minimum spend" />
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" formControlName="description" rows="4"
+                            placeholder="Enter description"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right side -->
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 p-4">
+                    <!-- Start Date -->
+                    <div class="mb-3">
+                        <label class="form-label">Start Date</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select start date" name="dpStart" ngbDatepicker
+                                #startDate="ngbDatepicker" formControlName="startDate" (click)="startDate.toggle()" />
+                            <button class="btn btn-outline-secondary" type="button" (click)="startDate.toggle()">
+                                <i class="bi bi-calendar-event"></i>
+                            </button>
+                        </div>
+                        <div *ngIf="isInvalid('startDate')" class="invalid-feedback d-block">
+                            Start date is required.
+                        </div>
+                    </div>
+
+                    <!-- End Date -->
+                    <div class="mb-3">
+                        <label class="form-label">End Date</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select end date" name="dpEnd" ngbDatepicker
+                                #endDate="ngbDatepicker" formControlName="endDate" (click)="endDate.toggle()" />
+                            <button class="btn btn-outline-secondary" type="button" (click)="endDate.toggle()">
+                                <i class="bi bi-calendar-event"></i>
+                            </button>
+                        </div>
+                        <div *ngIf="isInvalid('endDate')" class="invalid-feedback d-block">
+                            End date is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <button type="button" class="btn btn-outline-secondary px-4" (click)="onCancel()">Reset</button>
+            <button type="submit" class="btn btn-primary px-4">Save</button>
+        </div>
+    </form>
+</div>

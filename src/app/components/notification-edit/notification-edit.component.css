@@ -11,10 +11,6 @@
     transition: transform 0.2s ease;
 }
 
-.card:hover {
-    transform: translateY(-3px);
-}
-
 .form-label {
     font-weight: 600;
     color: #343a40;
