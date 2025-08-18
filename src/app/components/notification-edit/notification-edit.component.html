@@ -1,1 +1,103 @@
-<p>notification-edit works!</p>
+<div class="container-fluid py-4">
+    <form [formGroup]="notificationForm" (ngSubmit)="onSave()">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 p-4">
+                    <div class="mb-3">
+                        <label class="form-label">Message Type</label>
+                        <select class="form-select" formControlName="type">
+                            <option value="">Select Type</option>
+                            <option *ngFor="let type of messageTypes" [value]="type">{{ type }}</option>
+                        </select>
+                        <div *ngIf="isInvalid('type')" class="invalid-feedback d-block">
+                            Please select a message type.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Message Method</label>
+                        <select class="form-select" formControlName="method">
+                            <option value="">Select Method</option>
+                            <option *ngFor="let method of messageMethods" [value]="method">{{ method }}</option>
+                        </select>
+                        <div *ngIf="isInvalid('method')" class="invalid-feedback d-block">
+                            Please select a message method.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Audience</label>
+                        <select class="form-select" formControlName="audience">
+                            <option value="">Select Audience</option>
+                            <option *ngFor="let audience of audiences" [value]="audience">{{ audience }}</option>
+                        </select>
+                        <div *ngIf="isInvalid('audience')" class="invalid-feedback d-block">
+                            Please select an audience.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" formControlName="title" placeholder="Enter title" />
+                        <div *ngIf="isInvalid('title')" class="invalid-feedback d-block">
+                            Title is required.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Sub Title</label>
+                        <input type="text" class="form-control" formControlName="subtitle"
+                            placeholder="Enter subtitle" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" formControlName="message" rows="4"
+                            placeholder="Enter message"></textarea>
+                        <div *ngIf="isInvalid('message')" class="invalid-feedback d-block">
+                            Message is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 p-4">
+                    <div class="mb-3">
+                        <label class="form-label">Schedule Date</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Select date" name="dp" ngbDatepicker
+                                #d="ngbDatepicker" formControlName="scheduleDate" (click)="d.toggle()" />
+                            <button class="btn btn-outline-secondary" type="button" (click)="d.toggle()">
+                                <i class="bi bi-calendar-event"></i>
+                            </button>
+                        </div>
+                        <div *ngIf="isInvalid('scheduleDate')" class="invalid-feedback d-block">
+                            Schedule date is required.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Schedule Time</label>
+                        <ngb-timepicker formControlName="scheduleTime" [spinners]="true" [seconds]="false"
+                            [meridian]="true">
+                        </ngb-timepicker>
+                        <div *ngIf="isInvalid('scheduleTime')" class="invalid-feedback d-block">
+                            Schedule time is required.
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="recurring" formControlName="recurring" />
+                        <label class="form-check-label" for="recurring">Recurring Schedule</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <button type="button" class="btn btn-outline-secondary px-4" (click)="onCancel()">Cancel</button>
+            <button type="submit" class="btn btn-primary px-4">Save</button>
+        </div>
+    </form>
+</div>
