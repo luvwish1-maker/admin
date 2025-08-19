@@ -25,7 +25,7 @@ export const routes: Routes = [
 
             {
                 path: 'products',
-                data: { breadcrumb: 'All Products' },
+                data: { breadcrumb: 'Products' },
                 children: [
                     { path: '', component: ProductsComponent },
                     { path: 'create', component: ProductsEditComponent, data: { breadcrumb: 'New' } },
@@ -36,7 +36,7 @@ export const routes: Routes = [
 
             {
                 path: 'orders',
-                data: { breadcrumb: 'Order List' },
+                data: { breadcrumb: 'Orders' },
                 children: [
                     { path: '', component: OrdersComponent },
                     { path: ':id', component: OrderDetailComponent, data: { breadcrumb: 'Details' } }

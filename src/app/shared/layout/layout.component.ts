@@ -20,14 +20,7 @@ export class LayoutComponent implements OnInit {
   isSidebarOpen = false;
   isProfileMenuOpen = false;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        const route = this.router.url.split('/')[1];
-        this.pageTitle = route ? route.charAt(0).toUpperCase() + route.slice(1) : '';
-      }
-    });
-  }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.router.events
@@ -35,7 +28,7 @@ export class LayoutComponent implements OnInit {
       .subscribe(() => {
         this.breadcrumbs = this.buildBreadcrumb(this.activatedRoute.root);
         if (this.breadcrumbs.length > 0) {
-          this.pageTitle = this.breadcrumbs[this.breadcrumbs.length - 1].label;
+          this.pageTitle = this.breadcrumbs[0].label;
         }
       });
   }
