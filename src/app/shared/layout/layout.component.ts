@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
+import { AuthService } from '../../core/interceptor/auth.service';
 
 interface Breadcrumb {
   label: string;
@@ -20,7 +21,7 @@ export class LayoutComponent implements OnInit {
   isSidebarOpen = false;
   isProfileMenuOpen = false;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.router.events
@@ -84,7 +85,8 @@ export class LayoutComponent implements OnInit {
   }
 
   logout() {
-    console.log("Logged out");
+    this.authService.logout();
+    this.router.navigate(['/login'])
     this.isProfileMenuOpen = false;
   }
 }

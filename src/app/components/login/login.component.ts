@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
   showPassword = false;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -34,11 +35,12 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      this.loading = true;
       const { username, password } = this.loginForm.value;
 
       this.authService.login(username, password).subscribe({
         next: (response) => {
-          
+          this.loading = false;
           const user = response.data.user;
           this.alertService.showAlert({
             message: 'Login successful!',
@@ -49,6 +51,7 @@ export class LoginComponent {
           this.router.navigate(['/dashboard']);
         },
         error: (err) => {
+          this.loading = false;
           this.alertService.showAlert({
             message: err.error.message,
             type: 'error',
@@ -61,6 +64,7 @@ export class LoginComponent {
 
     } else {
       this.loginForm.markAllAsTouched();
+      this.loading = false;
       this.alertService.showAlert({
         message: 'Please fill in all required fields correctly.',
         type: 'error',
