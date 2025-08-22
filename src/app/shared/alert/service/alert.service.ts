@@ -19,7 +19,7 @@ export class AlertService {
 
   constructor() { }
 
-  showAlert(alert: Alert) {
+  showAlert(alert: Alert) {    
     this.alertSubject.next(alert);
   }
 }

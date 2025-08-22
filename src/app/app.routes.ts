@@ -12,6 +12,7 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
 import { NotificationEditComponent } from './components/notification-edit/notification-edit.component';
 import { CouponEditComponent } from './components/coupon-edit/coupon-edit.component';
 import { ProductsEditComponent } from './components/products-edit/products-edit.component';
+import { authGuard } from './core/guard/auth.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,11 +22,12 @@ export const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            { path: 'dashboard', component: DashboardComponent, data: { breadcrumb: 'Dashboard' } },
+            { path: 'dashboard', component: DashboardComponent, data: { breadcrumb: 'Dashboard' }, canActivate: [authGuard] },
 
             {
                 path: 'products',
                 data: { breadcrumb: 'Products' },
+                canActivate: [authGuard],
                 children: [
                     { path: '', component: ProductsComponent },
                     { path: 'create', component: ProductsEditComponent, data: { breadcrumb: 'New' } },
@@ -37,6 +39,7 @@ export const routes: Routes = [
             {
                 path: 'orders',
                 data: { breadcrumb: 'Orders' },
+                canActivate: [authGuard],
                 children: [
                     { path: '', component: OrdersComponent },
                     { path: ':id', component: OrderDetailComponent, data: { breadcrumb: 'Details' } }
@@ -48,6 +51,7 @@ export const routes: Routes = [
             {
                 path: 'notifications',
                 data: { breadcrumb: 'Notifications' },
+                canActivate: [authGuard],
                 children: [
                     { path: '', component: NotificationsComponent },
                     { path: 'create', component: NotificationEditComponent, data: { breadcrumb: 'Create' } },
@@ -58,6 +62,7 @@ export const routes: Routes = [
             {
                 path: 'coupons',
                 data: { breadcrumb: 'Coupons' },
+                canActivate: [authGuard],
                 children: [
                     { path: '', component: CouponsComponent },
                     { path: 'create', component: CouponEditComponent, data: { breadcrumb: 'Create' } },
