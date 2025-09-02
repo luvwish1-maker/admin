@@ -82,6 +82,14 @@
     overflow-y: auto;
 }
 
+.loader-wrapper {
+    min-height: 50vh;
+}
+
+.custom-spinner {
+    color: #EB147D;
+}
+
 @media (max-width: 768px) {
 
     .table td,

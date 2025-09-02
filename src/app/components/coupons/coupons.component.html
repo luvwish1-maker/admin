@@ -6,7 +6,13 @@
         </button>
     </div>
 
-    <div class="card shadow-sm border-0 rounded-3">
+    <div *ngIf="loading" class="loader-wrapper d-flex justify-content-center align-items-center">
+        <div class="spinner-border custom-spinner" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div *ngIf="!loading" class="card shadow-sm border-0 rounded-3">
         <div class="table-responsive">
             <table class="table align-middle table-hover">
                 <thead class="table-light">
@@ -15,19 +21,23 @@
                         <th scope="col">Type</th>
                         <th scope="col">Value</th>
                         <th scope="col">Min Spend</th>
+                        <th scope="col">Uses</th>
+                        <th scope="col">Usage Per Person</th>
                         <th scope="col">StartDate</th>
                         <th scope="col">EndDate</th>
                         <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let not of coupons">
-                        <td>{{ not.code }}</td>
-                        <td>{{ not.type }}</td>
-                        <td>{{ not.value }}</td>
-                        <td>{{ not.minSpend }}</td>
-                        <td>{{ not.startDate }}</td>
-                        <td>{{ not.endDate }}</td>
+                    <tr *ngFor="let not of allCouponns">
+                        <td>{{ not.couponName }}</td>
+                        <td>{{ not.ValueType }}</td>
+                        <td>{{ not.Value }}</td>
+                        <td>{{ not.minimumSpent }}</td>
+                        <td>{{ not.usedByCount }}</td>
+                        <td>{{ not.usageLimitPerPerson }}</td>
+                        <td>{{ not.validFrom | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ not.ValidTill | date:'dd/MM/yyyy' }}</td>
                         <td>
                             <span class="badge bg-success rounded-pill px-3 py-2">{{ not.status }}</span>
                         </td>

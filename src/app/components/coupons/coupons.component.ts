@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CouponService } from '../services/coupons/coupon.service';
 
 @Component({
   selector: 'app-coupons',
@@ -8,7 +9,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './coupons.component.html',
   styleUrl: './coupons.component.css'
 })
-export class CouponsComponent {
+export class CouponsComponent implements OnInit {
   coupons = [
     {
       id: 1,
@@ -91,4 +92,30 @@ export class CouponsComponent {
       status: 'Active',
     },
   ]
+
+    loading: boolean = true;
+    allCouponns!:any[];
+
+  constructor(
+    private service: CouponService
+  ) { }
+
+  ngOnInit(): void {
+    this.loadCoupons()
+  }
+
+  loadCoupons() {
+    this.loading = true;
+    this.service.getAllCoupons().subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.allCouponns = res.data || [];
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.loading = false;
+      }
+    })
+  }
 }

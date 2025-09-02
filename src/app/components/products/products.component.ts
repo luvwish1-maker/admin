@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProductsService } from '../services/products.service';
+import { ProductsService } from '../services/products/products.service';
 
 @Component({
   selector: 'app-products',
