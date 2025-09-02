@@ -16,4 +16,8 @@ export class CouponService {
   getAllCoupons(){
     return this.http.get(`${this.BaseUrl}`)
   }
+
+  createCoupon(itm:any){
+    return this.http.post(`${this.BaseUrl}`,itm)
+  }
 }
