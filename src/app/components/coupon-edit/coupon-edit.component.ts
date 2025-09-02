@@ -10,29 +10,21 @@ import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-boots
   styleUrl: './coupon-edit.component.css'
 })
 export class CouponEditComponent {
-  couponForm: FormGroup;
+  couponForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.couponForm = this.fb.group({
-      code: ['', Validators.required],
-      valueType: ['', Validators.required],
-      value: ['', Validators.required],
-      minSpend: [''],
-      description: [''],
-      startDate: [null, Validators.required],
-      endDate: [null, Validators.required]
-    });
+    this.formInit();
   }
 
   formInit() {
     this.couponForm = this.fb.group({
-      code: ['', Validators.required],
-      valueType: ['', Validators.required],
-      value: ['', Validators.required],
-      minSpend: [''],
-      description: [''],
-      startDate: [null, Validators.required],
-      endDate: [null, Validators.required]
+      couponName: ['', Validators.required],
+      ValueType: ['', Validators.required],
+      Value: ['', Validators.required],
+      minimumSpent: [''],
+      usageLimitPerPerson: ['', Validators.required],
+      validFrom: [null, Validators.required],
+      ValidTill: [null, Validators.required]
     });
   }
 

@@ -4,25 +4,26 @@
             <!-- Left side -->
             <div class="col-md-6">
                 <div class="card shadow-sm border-0 p-4">
-                    <!-- Coupon Code -->
+
+                    <!-- Coupon Name -->
                     <div class="mb-3">
-                        <label class="form-label">Coupon Code</label>
-                        <input type="text" class="form-control" formControlName="code"
-                            placeholder="Enter coupon code" />
-                        <div *ngIf="isInvalid('code')" class="invalid-feedback d-block">
-                            Coupon code is required.
+                        <label class="form-label">Coupon Name</label>
+                        <input type="text" class="form-control" formControlName="couponName"
+                            placeholder="Enter coupon name" />
+                        <div *ngIf="isInvalid('couponName')" class="invalid-feedback d-block">
+                            Coupon name is required.
                         </div>
                     </div>
 
                     <!-- Value Type -->
                     <div class="mb-3">
                         <label class="form-label">Value Type</label>
-                        <select class="form-select" formControlName="valueType">
+                        <select class="form-select" formControlName="ValueType">
                             <option value="">Select type</option>
                             <option value="percentage">Percentage</option>
                             <option value="fixed">Fixed Amount</option>
                         </select>
-                        <div *ngIf="isInvalid('valueType')" class="invalid-feedback d-block">
+                        <div *ngIf="isInvalid('ValueType')" class="invalid-feedback d-block">
                             Please select a value type.
                         </div>
                     </div>
@@ -30,57 +31,61 @@
                     <!-- Value -->
                     <div class="mb-3">
                         <label class="form-label">Value</label>
-                        <input type="number" class="form-control" formControlName="value" placeholder="Enter value" />
-                        <div *ngIf="isInvalid('value')" class="invalid-feedback d-block">
+                        <input type="number" class="form-control" formControlName="Value" placeholder="Enter value" />
+                        <div *ngIf="isInvalid('Value')" class="invalid-feedback d-block">
                             Value is required.
                         </div>
                     </div>
 
-                    <!-- Minimum Spend -->
+                    <!-- Minimum Spent -->
                     <div class="mb-3">
-                        <label class="form-label">Minimum Spend</label>
-                        <input type="number" class="form-control" formControlName="minSpend"
-                            placeholder="Enter minimum spend" />
+                        <label class="form-label">Minimum Spent</label>
+                        <input type="number" class="form-control" formControlName="minimumSpent"
+                            placeholder="Enter minimum spent" />
                     </div>
 
-                    <!-- Description -->
+                    <!-- Usage Limit -->
                     <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" formControlName="description" rows="4"
-                            placeholder="Enter description"></textarea>
+                        <label class="form-label">Usage Limit Per Person</label>
+                        <input type="number" class="form-control" formControlName="usageLimitPerPerson"
+                            placeholder="Enter usage limit" />
+                        <div *ngIf="isInvalid('usageLimitPerPerson')" class="invalid-feedback d-block">
+                            Usage limit is required.
+                        </div>
                     </div>
+
                 </div>
             </div>
 
             <!-- Right side -->
             <div class="col-md-6">
                 <div class="card shadow-sm border-0 p-4">
-                    <!-- Start Date -->
+                    <!-- Valid From -->
                     <div class="mb-3">
-                        <label class="form-label">Start Date</label>
+                        <label class="form-label">Valid From</label>
                         <div class="input-group">
                             <input class="form-control" placeholder="Select start date" name="dpStart" ngbDatepicker
-                                #startDate="ngbDatepicker" formControlName="startDate" (click)="startDate.toggle()" />
+                                #startDate="ngbDatepicker" formControlName="validFrom" (click)="startDate.toggle()" />
                             <button class="btn btn-outline-secondary" type="button" (click)="startDate.toggle()">
                                 <i class="bi bi-calendar-event"></i>
                             </button>
                         </div>
-                        <div *ngIf="isInvalid('startDate')" class="invalid-feedback d-block">
+                        <div *ngIf="isInvalid('validFrom')" class="invalid-feedback d-block">
                             Start date is required.
                         </div>
                     </div>
 
-                    <!-- End Date -->
+                    <!-- Valid Till -->
                     <div class="mb-3">
-                        <label class="form-label">End Date</label>
+                        <label class="form-label">Valid Till</label>
                         <div class="input-group">
                             <input class="form-control" placeholder="Select end date" name="dpEnd" ngbDatepicker
-                                #endDate="ngbDatepicker" formControlName="endDate" (click)="endDate.toggle()" />
+                                #endDate="ngbDatepicker" formControlName="ValidTill" (click)="endDate.toggle()" />
                             <button class="btn btn-outline-secondary" type="button" (click)="endDate.toggle()">
                                 <i class="bi bi-calendar-event"></i>
                             </button>
                         </div>
-                        <div *ngIf="isInvalid('endDate')" class="invalid-feedback d-block">
+                        <div *ngIf="isInvalid('ValidTill')" class="invalid-feedback d-block">
                             End date is required.
                         </div>
                     </div>
