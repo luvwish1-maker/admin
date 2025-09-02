@@ -41,6 +41,14 @@
     border-top: 2px solid #131313;
 }
 
+.loader-wrapper {
+    min-height: 50vh;
+}
+
+.custom-spinner {
+    color: #EB147D;
+}
+
 @media (max-width: 576px) {
     .product-img {
         width: 50px;
