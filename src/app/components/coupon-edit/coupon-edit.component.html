@@ -1,5 +1,13 @@
 <div class="container-fluid py-4">
-    <form [formGroup]="couponForm" (ngSubmit)="onSave()">
+
+    <!-- Loader when fetching coupon for edit -->
+    <div *ngIf="loadingData" class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+        <div class="spinner-border text-eb147d" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <form *ngIf="!loadingData" [formGroup]="couponForm" (ngSubmit)="onSave()">
         <div class="row g-4">
             <!-- Left side -->
             <div class="col-md-6">
@@ -65,7 +73,8 @@
                         <label class="form-label">Valid From</label>
                         <div class="input-group">
                             <input class="form-control" placeholder="Select start date" name="dpStart" ngbDatepicker
-                                #startDate="ngbDatepicker" formControlName="validFrom" autocomplete="off" (click)="startDate.toggle()" />
+                                #startDate="ngbDatepicker" formControlName="validFrom" autocomplete="off"
+                                (click)="startDate.toggle()" />
                             <button class="btn btn-outline-secondary" type="button" (click)="startDate.toggle()">
                                 <i class="bi bi-calendar-event"></i>
                             </button>
@@ -80,7 +89,8 @@
                         <label class="form-label">Valid Till</label>
                         <div class="input-group">
                             <input class="form-control" placeholder="Select end date" name="dpEnd" ngbDatepicker
-                                #endDate="ngbDatepicker" formControlName="ValidTill" autocomplete="off" (click)="endDate.toggle()" />
+                                #endDate="ngbDatepicker" formControlName="ValidTill" autocomplete="off"
+                                (click)="endDate.toggle()" />
                             <button class="btn btn-outline-secondary" type="button" (click)="endDate.toggle()">
                                 <i class="bi bi-calendar-event"></i>
                             </button>
@@ -95,8 +105,17 @@
 
         <!-- Buttons -->
         <div class="d-flex justify-content-center gap-3 mt-4">
-            <button type="button" class="btn btn-outline-secondary px-4" (click)="onCancel()">Reset</button>
-            <button type="submit" class="btn btn-primary px-4">Save</button>
+            <button type="button" class="btn btn-outline-secondary px-4" (click)="onCancel()"
+                [disabled]="loading">Reset</button>
+            <button type="submit" class="btn btn-primary px-4 d-flex align-items-center justify-content-center"
+                [disabled]="loading">
+                <span *ngIf="!loading">Save</span>
+                <span *ngIf="loading" class="d-flex align-items-center gap-2">
+                    <span class="spinner-border spinner-border-sm text-light" role="status"></span>
+                    Saving...
+                </span>
+            </button>
+
         </div>
     </form>
 </div>

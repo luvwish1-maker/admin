@@ -15,6 +15,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CouponEditComponent implements OnInit {
   couponForm!: FormGroup;
   couponId: string | null = null;
+  loading = false;
+  loadingData = false; 
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +31,7 @@ export class CouponEditComponent implements OnInit {
   ngOnInit(): void {
     this.couponId = this.route.snapshot.paramMap.get('id');
     if (this.couponId) {
+      this.loadingData = true;
       this.couponInit(this.couponId)
     }
   }
@@ -48,8 +51,10 @@ export class CouponEditComponent implements OnInit {
             validFrom: this.convertToDatepickerFormat(data.validFrom),
             ValidTill: this.convertToDatepickerFormat(data.ValidTill)
           });
+          this.loadingData = false;
         },
         error: (err) => {
+          this.loadingData = false;
           this.alertService.showAlert({
             message: err.error.message,
             type: 'error',
@@ -89,6 +94,8 @@ export class CouponEditComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     const formValue = this.couponForm.value;
 
     const payload = {
@@ -109,6 +116,7 @@ export class CouponEditComponent implements OnInit {
     if (this.couponId) {
       this.service.updateCoupon(this.couponId, payload).subscribe({
         next: () => {
+          this.loading = false;
           this.alertService.showAlert({
             message: 'Coupon Updated',
             type: 'success',
@@ -118,6 +126,7 @@ export class CouponEditComponent implements OnInit {
           this.router.navigate(['/coupons']);
         },
         error: (err) => {
+          this.loading = false;
           this.alertService.showAlert({
             message: err.error.message,
             type: 'error',
@@ -129,6 +138,7 @@ export class CouponEditComponent implements OnInit {
     } else {
       this.service.createCoupon(payload).subscribe({
         next: () => {
+          this.loading = false;
           this.alertService.showAlert({
             message: 'Coupon Created',
             type: 'success',
@@ -138,6 +148,7 @@ export class CouponEditComponent implements OnInit {
           this.router.navigate(['/coupons']);
         },
         error: (err) => {
+          this.loading = false;
           this.alertService.showAlert({
             message: err.error.message,
             type: 'error',
