@@ -1,1 +1,105 @@
-<p>products-edit works!</p>
+<div class="container-fluid py-4">
+    <!-- Loader when fetching product -->
+    <div *ngIf="loadingData" class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+        <div class="spinner-border text-eb147d" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <form *ngIf="!loadingData" [formGroup]="productForm" (ngSubmit)="onSave()">
+        <div class="row g-4">
+            <!-- Left side -->
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 p-4">
+
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <label class="form-label">Product Name</label>
+                        <input type="text" class="form-control" formControlName="name"
+                            placeholder="Enter product name" />
+                        <div *ngIf="isInvalid('name')" class="invalid-feedback d-block">
+                            Product name is required.
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <input type="text" class="form-control" formControlName="categoryName"
+                            placeholder="Enter category" />
+                    </div>
+
+                    <!-- Prices -->
+                    <div class="mb-3">
+                        <label class="form-label">Discounted Price</label>
+                        <input type="number" class="form-control" formControlName="discountedPrice" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Actual Price</label>
+                        <input type="number" class="form-control" formControlName="actualPrice" />
+                    </div>
+
+                    <!-- Stock -->
+                    <div class="mb-3">
+                        <label class="form-label">Stock Count</label>
+                        <input type="number" class="form-control" formControlName="stockCount" />
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" formControlName="isStock" />
+                        <label class="form-check-label">In Stock</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right side -->
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 p-4">
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea rows="5" class="form-control" formControlName="description"></textarea>
+                    </div>
+
+                    <!-- Images -->
+                    <div class="mb-3">
+                        <label class="form-label">Images</label>
+                        <div formArrayName="images">
+                            <div *ngFor="let img of images.controls; let i = index" [formGroupName]="i"
+                                class="border rounded p-3 mb-2">
+                                <input type="text" class="form-control mb-2" placeholder="Image URL"
+                                    formControlName="url" />
+                                <input type="text" class="form-control mb-2" placeholder="Alt text"
+                                    formControlName="altText" />
+                                <div class="form-check mb-2">
+                                    <input type="checkbox" class="form-check-input" formControlName="isMain" />
+                                    <label class="form-check-label">Main Image</label>
+                                </div>
+                                <input type="number" class="form-control mb-2" placeholder="Sort Order"
+                                    formControlName="sortOrder" />
+                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                    (click)="removeImage(i)">Remove</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary btn-sm mt-2" (click)="addImage()">Add
+                            Image</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <button type="button" class="btn btn-outline-secondary px-4" (click)="onCancel()"
+                [disabled]="loading">Reset</button>
+            <button type="submit" class="btn btn-primary px-4 d-flex align-items-center justify-content-center"
+                [disabled]="loading">
+                <span *ngIf="!loading">Save</span>
+                <span *ngIf="loading" class="d-flex align-items-center gap-2">
+                    <span class="spinner-border spinner-border-sm text-light" role="status"></span>
+                    Saving...
+                </span>
+            </button>
+        </div>
+    </form>
+</div>
