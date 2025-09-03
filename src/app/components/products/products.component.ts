@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ProductsService } from '../services/products/products.service';
 import { AlertService } from '../../shared/alert/service/alert.service';
 import { ConfirmationService } from '../../shared/confirmation-modal/service/confirmation.service';
@@ -20,6 +20,7 @@ export class ProductsComponent implements OnInit {
     private service: ProductsService,
     private alertService: AlertService,
     private confirmationService: ConfirmationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -73,5 +74,9 @@ export class ProductsComponent implements OnInit {
           });
         }
       });
+  }
+
+  goToDetails(id: string) {
+    this.router.navigate(['/products', id]);
   }
 }
