@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { CouponService } from '../services/coupons/coupon.service';
 import { AlertService } from '../../shared/alert/service/alert.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-coupon-edit',
@@ -12,16 +12,63 @@ import { Router } from '@angular/router';
   templateUrl: './coupon-edit.component.html',
   styleUrl: './coupon-edit.component.css'
 })
-export class CouponEditComponent {
+export class CouponEditComponent implements OnInit {
   couponForm!: FormGroup;
+  couponId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private service: CouponService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.formInit();
+  }
+
+  ngOnInit(): void {
+    this.couponId = this.route.snapshot.paramMap.get('id');
+    if (this.couponId) {
+      this.couponInit(this.couponId)
+    }
+  }
+
+  couponInit(id: string) {
+    if (id) {
+      this.service.getCouponByID(id).subscribe({
+        next: (res: any) => {
+          const data = res.data;
+
+          this.couponForm.patchValue({
+            couponName: data.couponName,
+            ValueType: data.ValueType,
+            Value: data.Value,
+            minimumSpent: data.minimumSpent,
+            usageLimitPerPerson: data.usageLimitPerPerson,
+            validFrom: this.convertToDatepickerFormat(data.validFrom),
+            ValidTill: this.convertToDatepickerFormat(data.ValidTill)
+          });
+        },
+        error: (err) => {
+          this.alertService.showAlert({
+            message: err.error.message,
+            type: 'error',
+            autoDismiss: true,
+            duration: 4000
+          });
+        }
+      });
+    }
+  }
+
+  private convertToDatepickerFormat(dateString: string | null) {
+    if (!dateString) return null;
+    const date = new Date(dateString);
+    return {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate()
+    };
   }
 
   formInit() {
@@ -59,26 +106,47 @@ export class CouponEditComponent {
       ) : null
     };
 
-    this.service.createCoupon(payload).subscribe({
-      next: (res) => {
-        this.alertService.showAlert({
-          message: 'Coupon Created',
-          type: 'success',
-          autoDismiss: true,
-          duration: 4000
-        });
-        this.formInit();
-        this.router.navigate(['/coupons'])
-      },
-      error: (err) => {
-        this.alertService.showAlert({
-          message: err.error.message,
-          type: 'error',
-          autoDismiss: true,
-          duration: 4000
-        });
-      }
-    });
+    if (this.couponId) {
+      this.service.updateCoupon(this.couponId, payload).subscribe({
+        next: () => {
+          this.alertService.showAlert({
+            message: 'Coupon Updated',
+            type: 'success',
+            autoDismiss: true,
+            duration: 4000
+          });
+          this.router.navigate(['/coupons']);
+        },
+        error: (err) => {
+          this.alertService.showAlert({
+            message: err.error.message,
+            type: 'error',
+            autoDismiss: true,
+            duration: 4000
+          });
+        }
+      });
+    } else {
+      this.service.createCoupon(payload).subscribe({
+        next: () => {
+          this.alertService.showAlert({
+            message: 'Coupon Created',
+            type: 'success',
+            autoDismiss: true,
+            duration: 4000
+          });
+          this.router.navigate(['/coupons']);
+        },
+        error: (err) => {
+          this.alertService.showAlert({
+            message: err.error.message,
+            type: 'error',
+            autoDismiss: true,
+            duration: 4000
+          });
+        }
+      });
+    }
   }
 
   isInvalid(controlName: string): boolean {

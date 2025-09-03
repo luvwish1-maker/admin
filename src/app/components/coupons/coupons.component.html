@@ -26,6 +26,7 @@
                         <th scope="col">StartDate</th>
                         <th scope="col">EndDate</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +41,10 @@
                         <td>{{ not.ValidTill | date:'dd/MM/yyyy' }}</td>
                         <td>
                             <span class="badge bg-success rounded-pill px-3 py-2">{{ not.status }}</span>
+                        </td>
+                        <td>
+                            <i class="bi bi-pencil action-icon edit-icon me-2" title="Edit" [routerLink]="['/coupons/edit', not.id]"></i>
+                            <i class="bi bi-trash action-icon delete-icon" title="Delete"></i>
                         </td>
                     </tr>
                 </tbody>

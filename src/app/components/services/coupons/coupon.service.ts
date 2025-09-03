@@ -13,11 +13,19 @@ export class CouponService {
     private http: HttpClient
   ) { }
 
-  getAllCoupons(){
+  getAllCoupons() {
     return this.http.get(`${this.BaseUrl}`)
   }
 
-  createCoupon(itm:any){
-    return this.http.post(`${this.BaseUrl}`,itm)
+  createCoupon(itm: any) {
+    return this.http.post(`${this.BaseUrl}`, itm)
+  }
+
+  getCouponByID(id: string) {
+    return this.http.get(`${this.BaseUrl}/${id}`)
+  }
+
+  updateCoupon(id: string, itm: any) {
+    return this.http.patch(`${this.BaseUrl}/${id}`, itm);
   }
 }
