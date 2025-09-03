@@ -1,1 +1,42 @@
-<p>product-detail works!</p>
+<div class="product-details-container">
+    <!-- Loader -->
+    <div *ngIf="loading" class="loader-container">
+        <div class="spinner-border text-eb147d" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Product Details -->
+    <div *ngIf="!loading && product" class="details-card">
+        <div class="details-header">
+            <h2>{{ product.name }}</h2>
+            <button class="btn-edit" (click)="onEdit()">Edit</button>
+        </div>
+
+        <div class="details-content">
+            <!-- Left Info -->
+            <div class="info-section">
+                <p><span>Category:</span> {{ product.categoryName }}</p>
+                <p><span>Discounted Price:</span> ₹{{ product.discountedPrice }}</p>
+                <p><span>Actual Price:</span> ₹{{ product.actualPrice }}</p>
+                <p><span>Stock Count:</span> {{ product.stockCount }}</p>
+                <p><span>In Stock:</span> {{ product.isStock ? 'Yes' : 'No' }}</p>
+            </div>
+
+            <!-- Right Description + Images -->
+            <div class="desc-section">
+                <h4>Description</h4>
+                <p>{{ product.description }}</p>
+
+                <h4>Images</h4>
+                <div class="image-grid">
+                    <div class="image-card" *ngFor="let img of product.images">
+                        <img [src]="img.url" [alt]="img.altText" />
+                        <small>{{ img.altText }}</small>
+                        <span *ngIf="img.isMain" class="badge">Main</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
