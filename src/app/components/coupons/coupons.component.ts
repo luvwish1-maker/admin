@@ -43,7 +43,7 @@ export class CouponsComponent implements OnInit {
 
   deleteItem(id: string) {
     this.confirmationService
-      .confirm('Delete Item', 'Are you sure you want to delete this item?', 'Delete', 'Cancel', 'danger')
+      .confirm('Delete Item', 'Are you sure you want to delete this coupon?', 'Delete', 'Cancel', 'danger')
       .then((confirmed) => {
         if (confirmed) {
           this.loading = true;

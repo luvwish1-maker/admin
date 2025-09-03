@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductsService } from '../services/products/products.service';
+import { AlertService } from '../../shared/alert/service/alert.service';
 
 @Component({
   selector: 'app-products-edit',
@@ -13,32 +16,23 @@ export class ProductsEditComponent implements OnInit {
   productForm!: FormGroup;
   loadingData = false;
   loading = false;
+  productId: string | null = null;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: ProductsService,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit(): void {
     this.buildForm();
 
-    // const sampleProduct = {
-    //   name: "Period Pain Relief Heat Patch",
-    //   categoryName: "Women's Sanitary Items",
-    //   discountedPrice: 199,
-    //   actualPrice: 249,
-    //   stockCount: 600,
-    //   description: "Self-heating period pain relief patch designed to soothe abdominal cramps during menstruation. Provides up to 8 hours of gentle, consistent warmth to relax muscles and reduce discomfort. Slim, discreet, and easy to wear under clothing.",
-    //   isStock: true,
-    //   images: [
-    //     {
-    //       url: "https://example.com/images/heat-patch.jpg",
-    //       altText: "Period pain relief heat patch packaging",
-    //       isMain: true,
-    //       sortOrder: 1
-    //     }
-    //   ]
-    // };
-
-    // this.productForm.patchValue(sampleProduct);
-    // sampleProduct.images.forEach(img => this.images.push(this.createImageGroup(img)));
+    this.productId = this.route.snapshot.paramMap.get('id');
+    if (this.productId) {
+      this.loadProduct(this.productId);
+    }
   }
 
   buildForm() {
@@ -80,6 +74,35 @@ export class ProductsEditComponent implements OnInit {
     return !!(control && control.invalid && (control.dirty || control.touched));
   }
 
+loadProduct(id: string) {
+  this.loadingData = true;
+  this.service.getProductByID(id).subscribe({
+    next: (res:any) => {
+      const product = res.data;
+
+      this.productForm.patchValue({
+        name: product.name,
+        categoryName: product.categoryName,
+        discountedPrice: Number(product.discountedPrice),
+        actualPrice: Number(product.actualPrice),
+        stockCount: Number(product.stockCount),
+        description: product.description,
+        isStock: product.isStock
+      });
+
+      this.images.clear();
+      if (product.images?.length) {
+        product.images.forEach((img: any) => this.images.push(this.createImageGroup(img)));
+      }
+
+      this.loadingData = false;
+    },
+    error: () => {
+      this.loadingData = false;
+    }
+  });
+}
+
   onSave() {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
@@ -88,14 +111,39 @@ export class ProductsEditComponent implements OnInit {
     this.loading = true;
 
     const productData = this.productForm.value;
-    console.log('Saving product:', productData);
 
-    setTimeout(() => {
-      this.loading = false;
-    }, 1500);
+    if (this.productId) {
+      this.service.updateProduct(this.productId, productData).subscribe({
+        next: () => {
+          this.loading = false;
+          this.alertService.showAlert({
+            message: 'Product Updated',
+            type: 'success',
+            autoDismiss: true,
+            duration: 4000
+          });
+          this.router.navigate(['/products']);
+        },
+        error: () => (this.loading = false)
+      });
+    } else {
+      this.service.createNewProduct(productData).subscribe({
+        next: () => {
+          this.loading = false;
+          this.alertService.showAlert({
+            message: 'Product Added',
+            type: 'success',
+            autoDismiss: true,
+            duration: 4000
+          });
+          this.router.navigate(['/products']);
+        },
+        error: () => (this.loading = false)
+      });
+    }
   }
 
   onCancel() {
-    this.productForm.reset();
+    this.router.navigate(['/products']);
   }
 }

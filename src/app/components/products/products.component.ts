@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ProductsService } from '../services/products/products.service';
+import { AlertService } from '../../shared/alert/service/alert.service';
+import { ConfirmationService } from '../../shared/confirmation-modal/service/confirmation.service';
 
 @Component({
   selector: 'app-products',
@@ -15,7 +17,9 @@ export class ProductsComponent implements OnInit {
   loading: boolean = true;
 
   constructor(
-    private service: ProductsService
+    private service: ProductsService,
+    private alertService: AlertService,
+    private confirmationService: ConfirmationService,
   ) { }
 
   ngOnInit(): void {
@@ -38,5 +42,36 @@ export class ProductsComponent implements OnInit {
         this.loading = false;
       }
     })
+  }
+
+  deleteItem(id: string) {
+    this.confirmationService
+      .confirm('Delete Item', 'Are you sure you want to delete this product?', 'Delete', 'Cancel', 'danger')
+      .then((confirmed) => {
+        if (confirmed) {
+          this.loading = true;
+          this.service.deleteProduct(id).subscribe({
+            next: () => {
+              this.allProducts = this.allProducts.filter(c => c.id !== id);
+              this.loading = false;
+              this.alertService.showAlert({
+                message: 'Product Deleted',
+                type: 'success',
+                autoDismiss: true,
+                duration: 4000
+              });
+            },
+            error: (err) => {
+              this.alertService.showAlert({
+                message: err.error.message,
+                type: 'error',
+                autoDismiss: true,
+                duration: 4000
+              });
+              this.loading = false;
+            }
+          });
+        }
+      });
   }
 }

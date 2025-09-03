@@ -13,7 +13,23 @@ export class ProductsService {
     private http: HttpClient
   ) { }
 
-  getAllProducts(){
+  getAllProducts() {
     return this.http.get(`${this.BaseUrl}`)
+  }
+
+  getProductByID(id: string) {
+    return this.http.get(`${this.BaseUrl}/${id}`)
+  }
+
+  createNewProduct(itm: any) {
+    return this.http.post(`${this.BaseUrl}`, itm)
+  }
+
+  updateProduct(id: string, itm: any) {
+    return this.http.patch(`${this.BaseUrl}/${id}`, itm)
+  }
+
+  deleteProduct(id:any){
+    return this.http.delete(`${this.BaseUrl}/${id}`)
   }
 }
