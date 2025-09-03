@@ -30,7 +30,6 @@ export class CouponsComponent implements OnInit {
     this.loading = true;
     this.service.getAllCoupons().subscribe({
       next: (res: any) => {
-        console.log(res);
         this.allCouponns = res.data || [];
         this.loading = false;
       },

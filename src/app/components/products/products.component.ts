@@ -31,7 +31,6 @@ export class ProductsComponent implements OnInit {
     this.loading = true;
     this.service.getAllProducts().subscribe({
       next: (res: any) => {
-        console.log(res);
         this.allProducts = (res.data.data || []).map((product: any) => ({
           ...product,
           mainImage: product.images?.find((img: any) => img.isMain)?.url || 'assets/images/no-image.png'
