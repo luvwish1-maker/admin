@@ -21,7 +21,7 @@
                         <select class="form-select" formControlName="ValueType">
                             <option value="">Select type</option>
                             <option value="percentage">Percentage</option>
-                            <option value="fixed">Fixed Amount</option>
+                            <option value="amount">Amount</option>
                         </select>
                         <div *ngIf="isInvalid('ValueType')" class="invalid-feedback d-block">
                             Please select a value type.
@@ -65,7 +65,7 @@
                         <label class="form-label">Valid From</label>
                         <div class="input-group">
                             <input class="form-control" placeholder="Select start date" name="dpStart" ngbDatepicker
-                                #startDate="ngbDatepicker" formControlName="validFrom" (click)="startDate.toggle()" />
+                                #startDate="ngbDatepicker" formControlName="validFrom" autocomplete="off" (click)="startDate.toggle()" />
                             <button class="btn btn-outline-secondary" type="button" (click)="startDate.toggle()">
                                 <i class="bi bi-calendar-event"></i>
                             </button>
@@ -80,7 +80,7 @@
                         <label class="form-label">Valid Till</label>
                         <div class="input-group">
                             <input class="form-control" placeholder="Select end date" name="dpEnd" ngbDatepicker
-                                #endDate="ngbDatepicker" formControlName="ValidTill" (click)="endDate.toggle()" />
+                                #endDate="ngbDatepicker" formControlName="ValidTill" autocomplete="off" (click)="endDate.toggle()" />
                             <button class="btn btn-outline-secondary" type="button" (click)="endDate.toggle()">
                                 <i class="bi bi-calendar-event"></i>
                             </button>

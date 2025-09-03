@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { CouponService } from '../services/coupons/coupon.service';
+import { AlertService } from '../../shared/alert/service/alert.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-coupon-edit',
@@ -15,7 +17,9 @@ export class CouponEditComponent {
 
   constructor(
     private fb: FormBuilder,
-    private service: CouponService
+    private service: CouponService,
+    private alertService: AlertService,
+    private router: Router
   ) {
     this.formInit();
   }
@@ -42,6 +46,7 @@ export class CouponEditComponent {
 
     const payload = {
       ...formValue,
+      Value: String(formValue.Value),
       validFrom: formValue.validFrom ? new Date(
         formValue.validFrom.year,
         formValue.validFrom.month - 1,
@@ -56,11 +61,22 @@ export class CouponEditComponent {
 
     this.service.createCoupon(payload).subscribe({
       next: (res) => {
-        console.log('Coupon Created Successfully:', res);
+        this.alertService.showAlert({
+          message: 'Coupon Created',
+          type: 'success',
+          autoDismiss: true,
+          duration: 4000
+        });
         this.formInit();
+        this.router.navigate(['/coupons'])
       },
       error: (err) => {
-        console.error('Error creating coupon:', err);
+        this.alertService.showAlert({
+          message: err.error.message,
+          type: 'error',
+          autoDismiss: true,
+          duration: 4000
+        });
       }
     });
   }
