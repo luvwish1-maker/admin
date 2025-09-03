@@ -44,7 +44,7 @@
                         </td>
                         <td>
                             <i class="bi bi-pencil action-icon edit-icon me-2" title="Edit" [routerLink]="['/coupons/edit', not.id]"></i>
-                            <i class="bi bi-trash action-icon delete-icon" title="Delete"></i>
+                            <i class="bi bi-trash action-icon delete-icon" title="Delete" (click)="deleteItem(not.id)"></i>
                         </td>
                     </tr>
                 </tbody>

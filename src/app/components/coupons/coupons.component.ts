@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CouponService } from '../services/coupons/coupon.service';
+import { ConfirmationService } from '../../shared/confirmation-modal/service/confirmation.service';
+import { AlertService } from '../../shared/alert/service/alert.service';
 
 @Component({
   selector: 'app-coupons',
@@ -10,94 +12,14 @@ import { CouponService } from '../services/coupons/coupon.service';
   styleUrl: './coupons.component.css'
 })
 export class CouponsComponent implements OnInit {
-  coupons = [
-    {
-      id: 1,
-      code: 'Welcome50',
-      type: 'Percentage',
-      value: '50%',
-      minSpend: '400',
-      startDate: '01/02/2025',
-      endDate: '01/02/2025',
-      status: 'Active',
-    },
-    {
-      id: 2,
-      code: 'Welcome50',
-      type: 'Percentage',
-      value: '50%',
-      minSpend: '400',
-      startDate: '01/02/2025',
-      endDate: '01/02/2025',
-      status: 'Active',
-    },
-    {
-      id: 3,
-      code: 'Welcome50',
-      type: 'Percentage',
-      value: '50%',
-      minSpend: '400',
-      startDate: '01/02/2025',
-      endDate: '01/02/2025',
-      status: 'Active',
-    },
-    {
-      id: 4,
-      code: 'Welcome50',
-      type: 'Percentage',
-      value: '50%',
-      minSpend: '400',
-      startDate: '01/02/2025',
-      endDate: '01/02/2025',
-      status: 'Active',
-    },
-    {
-      id: 5,
-      code: 'Welcome50',
-      type: 'Percentage',
-      value: '50%',
-      minSpend: '400',
-      startDate: '01/02/2025',
-      endDate: '01/02/2025',
-      status: 'Active',
-    },
-    {
-      id: 6,
-      code: 'Welcome50',
-      type: 'Percentage',
-      value: '50%',
-      minSpend: '400',
-      startDate: '01/02/2025',
-      endDate: '01/02/2025',
-      status: 'Active',
-    },
-    {
-      id: 7,
-      code: 'Welcome50',
-      type: 'Percentage',
-      value: '50%',
-      minSpend: '400',
-      startDate: '01/02/2025',
-      endDate: '01/02/2025',
-      status: 'Active',
-    },
-    {
-      id: 8,
-      code: 'Welcome50',
-      type: 'Percentage',
-      value: '50%',
-      minSpend: '400',
-      startDate: '01/02/2025',
-      endDate: '01/02/2025',
-      status: 'Active',
-    },
-  ]
 
-    loading: boolean = true;
-    allCouponns!:any[];
+  loading: boolean = true;
+  allCouponns!: any[];
 
   constructor(
-    private service: CouponService
+    private service: CouponService,
+    private confirmationService: ConfirmationService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -118,5 +40,36 @@ export class CouponsComponent implements OnInit {
       }
     })
   }
-  
+
+  deleteItem(id: string) {
+    this.confirmationService
+      .confirm('Delete Item', 'Are you sure you want to delete this item?', 'Delete', 'Cancel', 'danger')
+      .then((confirmed) => {
+        if (confirmed) {
+          this.loading = true;
+          this.service.deleteCoupon(id).subscribe({
+            next: () => {
+              this.allCouponns = this.allCouponns.filter(c => c.id !== id);
+              this.loading = false;
+              this.alertService.showAlert({
+                message: 'Coupon Deleted',
+                type: 'success',
+                autoDismiss: true,
+                duration: 4000
+              });
+            },
+            error: (err) => {
+              this.alertService.showAlert({
+                message: err.error.message,
+                type: 'error',
+                autoDismiss: true,
+                duration: 4000
+              });
+              this.loading = false;
+            }
+          });
+        }
+      });
+  }
+
 }

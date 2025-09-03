@@ -28,4 +28,8 @@ export class CouponService {
   updateCoupon(id: string, itm: any) {
     return this.http.patch(`${this.BaseUrl}/${id}`, itm);
   }
+
+  deleteCoupon(id:string){
+    return this.http.delete(`${this.BaseUrl}/${id}`)
+  }
 }
