@@ -122,13 +122,13 @@ loadProduct(id: string) {
             autoDismiss: true,
             duration: 4000
           });
-          this.router.navigate(['/products']);
+          this.router.navigate(['/products', this.productId]);
         },
         error: () => (this.loading = false)
       });
     } else {
       this.service.createNewProduct(productData).subscribe({
-        next: () => {
+        next: (res:any) => {
           this.loading = false;
           this.alertService.showAlert({
             message: 'Product Added',
@@ -136,7 +136,7 @@ loadProduct(id: string) {
             autoDismiss: true,
             duration: 4000
           });
-          this.router.navigate(['/products']);
+          this.router.navigate(['/products', res.data.id]);
         },
         error: () => (this.loading = false)
       });

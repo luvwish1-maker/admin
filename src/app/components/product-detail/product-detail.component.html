@@ -10,7 +10,10 @@
     <div *ngIf="!loading && product" class="details-card">
         <div class="details-header">
             <h2>{{ product.name }}</h2>
-            <button class="btn-edit" (click)="onEdit()">Edit</button>
+            <div class="actions">
+                <button class="btn-edit" (click)="onEdit()">Edit</button>
+                <button class="btn-delete" (click)="onDelete(product.id)">Delete</button>
+            </div>
         </div>
 
         <div class="details-content">
