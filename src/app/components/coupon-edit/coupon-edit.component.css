@@ -50,48 +50,6 @@
     border-radius: 0.5rem;
 }
 
-::ng-deep ngb-timepicker .btn-outline-primary,
-::ng-deep ngb-timepicker .btn-outline-primary:hover,
-::ng-deep ngb-timepicker .btn-outline-primary:focus {
-    border-color: #EB147D !important;
-    color: #EB147D !important;
-}
-
-::ng-deep ngb-timepicker .btn-outline-primary.active,
-::ng-deep ngb-timepicker .btn-outline-primary:active {
-    background-color: #EB147D !important;
-    border-color: #EB147D !important;
-    color: #fff !important;
-}
-
-::ng-deep ngb-timepicker input.form-control {
-    border: 1px solid #EB147D !important;
-    color: #EB147D !important;
-}
-
-::ng-deep ngb-timepicker .btn-outline-primary {
-    border-color: #EB147D !important;
-    color: #EB147D !important;
-}
-
-::ng-deep ngb-timepicker .btn-outline-primary:hover {
-    background-color: #EB147D !important;
-    color: #fff !important;
-    border-color: #EB147D !important;
-}
-
-::ng-deep ngb-timepicker .btn-outline-primary.active,
-::ng-deep ngb-timepicker .btn-outline-primary:active {
-    background-color: #EB147D !important;
-    color: #fff !important;
-    border-color: #EB147D !important;
-}
-
-::ng-deep ngb-timepicker input.form-control {
-    border: 1px solid #EB147D !important;
-    color: #EB147D !important;
-}
-
 .text-eb147d {
     color: #EB147D !important;
 }
