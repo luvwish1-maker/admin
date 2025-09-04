@@ -4,10 +4,11 @@ import { Router, RouterModule } from '@angular/router';
 import { ProductsService } from '../services/products/products.service';
 import { AlertService } from '../../shared/alert/service/alert.service';
 import { ConfirmationService } from '../../shared/confirmation-modal/service/confirmation.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -15,6 +16,15 @@ export class ProductsComponent implements OnInit {
 
   allProducts!: any[];
   loading: boolean = true;
+
+  search = '';
+  minPrice = '';
+
+  page = 1;
+  limit = 6;
+  totalPages = 1;
+  totalPagesArray: number[] = [];
+  total = 0;
 
   constructor(
     private service: ProductsService,
@@ -29,12 +39,23 @@ export class ProductsComponent implements OnInit {
 
   loadProducts() {
     this.loading = true;
-    this.service.getAllProducts().subscribe({
+    const params = {
+      search: this.search || '',
+      minPrice: this.minPrice || '',
+      limit: this.limit,
+      page: this.page
+    };
+
+    this.service.getAllProducts(params).subscribe({
       next: (res: any) => {
         this.allProducts = (res.data.data || []).map((product: any) => ({
           ...product,
           mainImage: product.images?.find((img: any) => img.isMain)?.url || 'assets/images/no-image.png'
         }));
+        this.total = res.data.meta?.total || 0;
+        this.totalPages = res.data.meta?.totalPages || 1;
+        this.totalPagesArray = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+
         this.loading = false;
       },
       error: (err) => {
@@ -42,6 +63,24 @@ export class ProductsComponent implements OnInit {
         this.loading = false;
       }
     })
+  }
+
+  applyFilters() {
+    this.page = 1;
+    this.loadProducts();
+  }
+
+  resetFilters() {
+  this.search = '';
+  this.minPrice = '';
+  this.page = 1;
+  this.loadProducts();
+}
+
+  changePage(p: number) {
+    if (p < 1 || p > this.totalPages) return;
+    this.page = p;
+    this.loadProducts();
   }
 
   deleteItem(id: string) {

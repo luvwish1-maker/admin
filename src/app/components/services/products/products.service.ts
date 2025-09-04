@@ -13,8 +13,8 @@ export class ProductsService {
     private http: HttpClient
   ) { }
 
-  getAllProducts() {
-    return this.http.get(`${this.BaseUrl}`)
+  getAllProducts(params?:any) {
+    return this.http.get(`${this.BaseUrl}`, {params})
   }
 
   getProductByID(id: string) {
