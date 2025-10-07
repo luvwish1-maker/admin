@@ -13,6 +13,7 @@ import { NotificationEditComponent } from './components/notification-edit/notifi
 import { CouponEditComponent } from './components/coupon-edit/coupon-edit.component';
 import { ProductsEditComponent } from './components/products-edit/products-edit.component';
 import { authGuard } from './core/guard/auth.guard';
+import { UsersComponent } from './components/users/users.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -47,6 +48,7 @@ export const routes: Routes = [
             },
 
             { path: 'revenue', component: PaymentsComponent, data: { breadcrumb: 'Revenue' } },
+            { path: 'users', component: UsersComponent, data: { breadcrumb: 'Users' } },
 
             {
                 path: 'notifications',
